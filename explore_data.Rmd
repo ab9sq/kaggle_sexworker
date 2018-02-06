@@ -58,6 +58,7 @@ Need to deal with NA prior to converting to factor
 worker$Gender[is.na(worker$Gender)] <- "not_stated"
 worker$Gender <- as.factor(worker$Gender)
 
+#need to deal with blank values
 worker$Location[is.na(worker$Location)] <- "unknown"
 worker$Location <- as.factor(worker$Location)
 
@@ -70,6 +71,7 @@ worker$Sexual_orientation <- as.factor(worker$Sexual_orientation)
 worker$Sexual_polarity[is.na(worker$Sexual_polarity)] <- "not_stated"
 worker$Sexual_polarity <- as.factor(worker$Sexual_polarity)
 
+#need to deal with blank values
 worker$Looking_for[is.na(worker$Looking_for)] <- "unknown"
 worker$Looking_for <- as.factor(worker$Looking_for)
 
@@ -82,20 +84,14 @@ worker$Risk <- as.factor(worker$Risk)
 # setting numeric
 the following fields are characters and need to be converted to a number
 
-* Pending
-     * Points_Rank
-     * Number_of_Comments_in_public_forum
-     
-* completed
-     * Number_of_advertisments_posted
-     * Number_of_offline_meetings_attended
-     * Profile_pictures
-     * User_ID
-     * Age
+* Number_of_advertisments_posted
+* Number_of_offline_meetings_attended
+* Profile_pictures
+* User_ID
+* Age
+* Number_of_Comments_in_public_forum
+* Points_Rank
 ```{r convert to numeric values}
-
-# worker$Points_Rank <- as.numeric(worker$Points_Rank) 
-#      deal with value "a" "" and  1 196   1 215   1 437   1 626 see blanks in values
 
 worker$Number_of_advertisments_posted <- as.integer(worker$Number_of_advertisments_posted)
 
@@ -115,6 +111,14 @@ worker$Number_of_Comments_in_public_forum <- gsub(pattern = " ",
                                              replacement = "",
                                              worker$Number_of_Comments_in_public_forum)
 worker$Number_of_Comments_in_public_forum <- as.numeric(worker$Number_of_Comments_in_public_forum)
+
+worker$Points_Rank <- gsub(pattern = "a",
+                      replacement = "0",
+                      worker$Points_Rank)
+worker$Points_Rank <- gsub(pattern = " ",
+                      replacement = "",
+                      worker$Points_Rank)
+worker$Points_Rank <- as.integer(worker$Points_Rank)
 ```
 
 # Dates

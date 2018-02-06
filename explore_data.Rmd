@@ -18,6 +18,7 @@ knitr::opts_chunk$set(echo = TRUE)
 # setup
 ```{r}
 require(tidyverse)
+require(lubridate)
 ```
 
 # read data
@@ -80,7 +81,12 @@ the following fields are characters and need to be converted to a number
 #worker$Number_of_Comments_in_public_forum <- as.numeric(worker$Number_of_Comments_in_public_forum)
 #    deal with "" 1 174   1 275   1 894  2 062 
 
-subset(worker, subset = Number_of_advertisments_posted == "")$Number_of_advertisments_posted <- "0" #explore gsub
+#subset(worker, subset = Number_of_advertisments_posted == "")$Number_of_advertisments_posted <- "0" 
+#explore gsub
+worker$Number_of_advertisments_posted <- gsub(pattern = "",
+                                              replacement = "0",
+                                              worker$Number_of_advertisments_posted)
+
 worker$Number_of_advertisments_posted <- as.numeric(worker$Number_of_advertisments_posted)
 
 subset(worker, Number_of_offline_meetings_attended == "")$NNumber_of_offline_meetings_attended <- "0"

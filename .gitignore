@@ -1,3 +1,14 @@
+# for not archiving producted items
+*.pdf
+*.PDF
+
+# R cache
+./cache/*
+# ------------- From bithub ---------
+# -----------------for R ------------
+#
+#
+
 # History files
 .Rhistory
 .Rapp.history
@@ -31,3 +42,4 @@ vignettes/*.pdf
 # Temporary files created by R markdown
 *.utf8.md
 *.knit.md
+.Rproj.user

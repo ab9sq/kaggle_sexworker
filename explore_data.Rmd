@@ -1,0 +1,108 @@
+---
+title: "exploration of dataset"
+author: "Nick Lauerman"
+date: "January 3, 2018"
+output: 
+  pdf_document: 
+    fig_caption: yes
+    fig_height: 7.5
+    fig_width: 7.5
+    toc: yes
+    toc_depth: 4
+---
+
+```{r setup, include=FALSE}
+knitr::opts_chunk$set(echo = TRUE)
+```
+
+# setup
+```{r}
+require(tidyverse)
+```
+
+# read data
+```{r}
+dataRaw <- read.csv("./data/online_sex_work.csv", 
+                    stringsAsFactors = FALSE,
+                    dec = ",")
+dataRaw
+```
+# setting factors
+
+Need to deal with NA prior to converting to factor
+
+
+* Gender 
+* Location 
+* Verification
+* Sexual_orientation 
+* Sexual_polarity 
+* Looking_for
+* Risk 
+```{r}
+worker <- dataRaw
+worker$Gender[is.na(worker$Gender)] <- "not_stated"
+worker$Gender <- as.factor(worker$Gender)
+
+worker$Location[is.na(worker$Location)] <- "unknown"
+worker$Location <- as.factor(worker$Location)
+
+worker$Verification[is.na(worker$Verification)] <- "unknown"
+worker$Verification <- as.factor(worker$Verification)
+
+worker$Sexual_orientation[is.na(worker$Sexual_orientation)] <- "not_stated"
+worker$Sexual_orientation <- as.factor(worker$Sexual_orientation)
+
+worker$Sexual_polarity[is.na(worker$Sexual_polarity)] <- "not_stated"
+worker$Sexual_polarity <- as.factor(worker$Sexual_polarity)
+
+worker$Looking_for[is.na(worker$Looking_for)] <- "unknown"
+worker$Looking_for <- as.factor(worker$Looking_for)
+
+worker$Risk[is.na(worker$Risk)] <- "unrated"
+worker$Risk <- as.factor(worker$Risk)
+```
+
+# setting numeric
+the following fields are characters and need to be converted to a number
+
+* Points_Rank
+* Number_of_Comments_in_public_forum
+* Number_of_advertisments_posted
+* Number_of_offline_meetings_attended
+* Profile_pictures
+* Age
+* User_ID
+```{r}
+# worker$Points_Rank <- as.numeric(worker$Points_Rank) 
+#      deal with value "a" "" and  1 196   1 215   1 437   1 626 see blanks in values
+
+#worker$Number_of_Comments_in_public_forum <- as.numeric(worker$Number_of_Comments_in_public_forum)
+#    deal with "" 1 174   1 275   1 894  2 062 
+
+subset(worker, subset = Number_of_advertisments_posted == "")$Number_of_advertisments_posted <- "0" #explore gsub
+worker$Number_of_advertisments_posted <- as.numeric(worker$Number_of_advertisments_posted)
+
+subset(worker, Number_of_offline_meetings_attended == "")$NNumber_of_offline_meetings_attended <- "0"
+
+worker$Number_of_offline_meetings_attended <- as.numeric(worker$Number_of_offline_meetings_attended)
+
+subset(worker, Number_of_advertisments_posted == "")$Number_of_advertisments_posted <- "0"
+worker$Profile_pictures <- as.numeric(worker$Profile_pictures)
+
+
+#worker$Age <- as.numeric(worker$Age) 
+#   Need to convert , to . as characters before converting to a number
+
+#worker$User_ID <- as.numeric(worker$User_ID)
+#   deal with ""
+```
+
+# Dates
+comvert Member_since to a date
+format is date.month(number).year(4 digits)
+```{r}
+require(lubridate)
+worker$Member_since <- as.Date(worker$Member_since, format = "%d.%m.%Y")
+```
+

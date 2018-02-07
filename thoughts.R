@@ -53,6 +53,10 @@ elif row['Looking_for'] == 'Women':
 
 return np.nan
 
+looking <- function(sex, orientation){
+
+}
+
 # location
 df['Location'].fillna(df['Location'].mode()[0], inplace=True)
 

@@ -53,8 +53,24 @@ elif row['Looking_for'] == 'Women':
 
 return np.nan
 
-looking <- function(sex, orientation){
+looking <- function(sex, orientation, look){
+if(sex == ""){
+     if(orientation == "Momosexual"){
+          if(look == "Men"){
+               sex <- "male"
+          }else{
+               sex <- "female"
+          }
+     }
+     if(orientation == "Heterosexual"){
+          if(look == "Men"){
+               sex <- "female"
+          }else{
+               sex <- "male"
+          }
+     }
 
+}
 }
 
 # location

@@ -5,3 +5,6 @@ To be used to track task relative theproject
 [ ] Blank values for looking for needs to be dealt with. psydo codein thougts.R
 
 [ ] Blank valuses for location. more pysdo code in thoughts.R (convert to NA?)
+
+[ ] create binary items
+

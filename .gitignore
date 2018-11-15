@@ -45,5 +45,5 @@ vignettes/*.pdf
 .Rproj.user
 
 # GITHUB
-.github/*
+./.github/*
 

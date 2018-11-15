@@ -45,5 +45,6 @@ vignettes/*.pdf
 .Rproj.user
 
 # GITHUB
-./.github/*
+#./.github/* didn't work
+#.github/*   didn't work
 
